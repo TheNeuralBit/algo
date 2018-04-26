@@ -8,16 +8,16 @@
   args:
     creates: "{{ SSH_keys.private }}"
 
+- name: Change mode for the SSH private key
+  file:
+    path: "{{ SSH_keys.private }}"
+    mode: 0600
+
 - name: Generate the SSH public key
   shell: >
     echo `ssh-keygen -y -f {{ SSH_keys.private }}` {{ SSH_keys.comment }}
     > {{ SSH_keys.public }}
   changed_when: false
-
-- name: Change mode for the SSH private key
-  file:
-    path: "{{ SSH_keys.private }}"
-    mode: 0600
 
 - name: Ensure the dynamic inventory exists
   blockinfile:
