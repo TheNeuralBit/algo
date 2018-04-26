@@ -1,0 +1,8 @@
+[Interface]
+PrivateKey = {{ lookup('file', wireguard_config_path + '/private/' + item.1) }}
+Address = {{ wireguard_subnet }}.{{ item.0 + 2 }}/{{ wireguard_prefix }}
+
+[Peer]
+PublicKey = {{ lookup('file', wireguard_config_path + '/public/' + IP_subject_alt_name) }}
+AllowedIPs = 0.0.0.0/0
+Endpoint = {{ IP_subject_alt_name }}:{{ wireguard_port }}

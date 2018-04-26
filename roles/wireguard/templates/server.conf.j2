@@ -1,0 +1,14 @@
+[Interface]
+Address = {{ wireguard_server_address }}
+DNS = {{ local_service_ip }}
+ListenPort = {{ wireguard_port }}
+PrivateKey = {{ lookup('file', wireguard_config_path + '/private/' + IP_subject_alt_name) }}
+SaveConfig = false
+Table = off
+
+{% for u in users %}
+[Peer]
+# {{ u }}
+PublicKey = {{ lookup('file', wireguard_config_path + '/public/' + u) }}
+AllowedIPs = {{ wireguard_subnet }}.{{ loop.index + 1 }}/32
+{% endfor %}

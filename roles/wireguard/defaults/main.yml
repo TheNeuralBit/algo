@@ -1,0 +1,9 @@
+---
+wireguard_config_path: "configs/{{ IP_subject_alt_name }}/WireGuard/"
+wireguard_network: '{{ wireguard_vpn_network.split("/")[0] }}'
+wireguard_prefix: '{{ wireguard_vpn_network.split("/")[1] }}'
+wireguard_subnet: '{{ wireguard_network.split(".")[0] }}.{{ wireguard_network.split(".")[1] }}.{{ wireguard_network.split(".")[2] }}'
+wireguard_server_address: '{{ wireguard_subnet }}.1/{{ wireguard_prefix }}'
+wireguard_port: 51820
+wireguard_interface: wg0
+easyrsa_reinit_existent: false
